@@ -8,4 +8,4 @@
 #     unzip gradle-2.0-all.zip
 #     rm -f gradle-2.0-all.zip
 # fi
-
+./gradlew build

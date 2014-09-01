@@ -85,7 +85,7 @@ allprojects {
 
     // https://github.com/gradle/gradle/pull/292
     task wrapper(type: Wrapper) {
-      gradleVersion = '1.6'
+      gradleVersion = '2.2-20140831220010+0000'
     }
 }
 
