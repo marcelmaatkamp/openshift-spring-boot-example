@@ -4,4 +4,4 @@ set -x
 cd $OPENSHIFT_REPO_DIR
 export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR/gradle
 
-./gradlew build
+./gradlew -s build
