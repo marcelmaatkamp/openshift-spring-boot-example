@@ -1,7 +1,6 @@
 buildscript {
     repositories {
-     maven { url 'http://stein.pirod.nl:9090/artifactory/plugins-release' }
-     maven { url 'http://stein.pirod.nl:9090/artifactory/plugins-snapshot-local' }
+      mavenCentral() 
     }
     dependencies {
         classpath group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.6'
@@ -10,6 +9,7 @@ buildscript {
         classpath group: 'com.lookout', name: 'jruby-gradle-plugin', version: '2.1.+'
     }
 }
+
 
 allprojects {
     apply plugin: 'java'
