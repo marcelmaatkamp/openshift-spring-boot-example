@@ -1,0 +1,4 @@
+include ':project'
+
+include ':project:modules',
+        ':project:modules:jruby'

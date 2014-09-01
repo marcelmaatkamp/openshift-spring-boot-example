@@ -1,0 +1,4 @@
+dependencies {
+
+    testCompile "org.springframework:spring-test:${rootProject["spring.version"]}"
+}

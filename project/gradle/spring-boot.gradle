@@ -1,0 +1,22 @@
+dependencies {
+
+    compile "org.springframework.boot:spring-boot:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-maven-plugin:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-actuator:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-autoconfigure:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-gradle-plugin:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-loader:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-loader-tools:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-actuator:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-batch:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-logging:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-data-jpa:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-security:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-tomcat:${rootProject["spring.boot.version"]}",
+            "org.springframework.boot:spring-boot-starter-websocket:${rootProject["spring.boot.version"]}"
+
+    compile("org.springframework.boot:spring-boot-starter-web:${rootProject["spring.boot.version"]}") {
+        exclude module: "spring-boot-starter-jetty"
+    }
+    apply from: "${rootProject.projectDir}/project/gradle/thymeleaf.gradle"
+}

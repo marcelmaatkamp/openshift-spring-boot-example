@@ -1,0 +1,3 @@
+dependencies {
+    compile "me.moocar:logback-gelf:${rootProject["logback-gelf.version"]}"
+}

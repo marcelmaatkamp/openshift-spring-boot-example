@@ -1,0 +1,11 @@
+#!/bin/bash
+# set -x
+# if [ ! -d $OPENSHIFT_DATA_DIR/gradle-1.6 ]
+# then
+#     cd $OPENSHIFT_DATA_DIR
+#     mkdir gradle
+#     wget https://services.gradle.org/distributions/gradle-2.0-all.zip
+#     unzip gradle-2.0-all.zip
+#     rm -f gradle-2.0-all.zip
+# fi
+

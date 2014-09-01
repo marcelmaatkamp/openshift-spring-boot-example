@@ -1,0 +1,8 @@
+dependencies {
+    compile "org.thymeleaf:thymeleaf-spring4:${rootProject["thymeleaf.version"]}",
+             "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${rootProject["thymeleaf.layout.dialect.version"]}",
+             "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:${rootProject["thymeleaf.springsecurity3.version"]}"
+
+    // testCompile "org.thymeleaf::thymeleaf-testing:${rootProject["thymeleaf.version"]}"
+
+}

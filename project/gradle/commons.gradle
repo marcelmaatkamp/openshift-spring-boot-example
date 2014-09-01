@@ -1,0 +1,8 @@
+dependencies {
+    compile "commons-beanutils:commons-beanutils:1.8.3",
+            "commons-collections:commons-collections:3.2.1",
+            "commons-io:commons-io:2.4",
+            "commons-lang:commons-lang:2.6",
+            "commons-codec:commons-codec:1.8",
+            "org.apache.commons:commons-lang3:3.1"
+}

@@ -1,0 +1,142 @@
+buildscript {
+    repositories {
+     maven { url 'http://stein.pirod.nl:9090/artifactory/plugins-release' }
+     maven { url 'http://stein.pirod.nl:9090/artifactory/plugins-snapshot-local' }
+    }
+    dependencies {
+        classpath group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.6'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject["spring.boot.version"]}")
+        classpath 'se.transmode.gradle:gradle-docker:1.2-SNAPSHOT'
+        classpath group: 'com.lookout', name: 'jruby-gradle-plugin', version: '2.1.+'
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'spring-boot'
+    apply plugin: 'application'
+    apply plugin: 'war'
+    apply plugin: 'docker'
+
+    repositories {
+        maven { url "http://stein.pirod.nl:9090/artifactory/libs-release/" }
+    }
+
+    dependencies {
+        apply from: "${rootProject.projectDir}/project/gradle/spring-boot.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/guava.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/joda.gradle"
+
+        apply from: "${rootProject.projectDir}/project/gradle/commons.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/logback.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/logback-gelf.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/slf4j.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/hamcrest.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/junit.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/mockito.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/spring-test.gradle"
+
+        compile fileTree(dir: 'lib', includes: ['*.jar'])
+        compile fileTree(dir: 'lib', includes: ['*.war'])
+    }
+
+    configurations {
+        all*.exclude module: "slf4j-log4j12"
+    }
+
+    test {
+        testLogging.showStandardStreams = true
+    }
+
+    task testJar(type: Jar, dependsOn: testClasses) {
+        baseName = "test-${project.archivesBaseName}"
+        from sourceSets.test.output
+    }
+
+    configurations {
+        tests
+    }
+
+    artifacts {
+        tests testJar
+    }
+
+    tasks.withType(Jar) {
+        baseName = "${rootProject.name}-${project.name}"
+    }
+
+    tasks.withType(Zip) {
+        baseName = "${rootProject.name}-${project.name}"
+    }
+
+    group = "jruby"
+    version = "1.0"
+    project.version = '1.0'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    docker {
+      baseImage "jruby/jruby"
+      maintainer 'm.maatkamp@gmail.com'
+    }
+
+    // https://github.com/gradle/gradle/pull/292
+    task wrapper(type: Wrapper) {
+      gradleVersion = '1.6'
+    }
+}
+
+project("project:modules") {
+    dependencies {
+        compile project(":project")
+        // compile project(":project:services:services-rabbitmq")
+        apply from: "${rootProject.projectDir}/project/gradle/cqengine.gradle"
+    }
+}
+
+project("project:modules:jruby") {
+    apply plugin: 'com.lookout.jruby'
+
+
+    configurations {
+        all*.exclude group: "org.hibernate"
+        all*.exclude group: "org.hibernate.javax.persistence"
+    }
+    dependencies {
+        compile project(":project:modules")
+        apply from: "${rootProject.projectDir}/project/gradle/jruby.gradle"
+        apply from: "${rootProject.projectDir}/project/gradle/asciidoctorj.gradle"
+
+        gems group: 'rubygems', name: 'sinatra', version: '1.4.5'
+        gems group: 'rubygems', name: 'rake', version: '10.3.+'
+        gems group: 'rubygems', name: 'burn', version: '0.2.0'
+
+        gems group: 'rubygems', name: 'logback', version: '0.9.15.2'
+
+        jrubyWar group: 'org.apache.kafka', name: 'kafka_2.9.2', version: '0.8.+'
+        jrubyWar group: 'log4j', name: 'log4j', version: '1.2.+', transitive: true
+    }
+
+    mainClassName = "jruby.JRubyApplicationStarter"
+    // applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,address=localhost:7001,server=y,suspend=n"]
+    war { 
+      archiveName = 'ROOT.war'
+      destinationDir = file('../../../webapps')
+    }
+
+    distDocker {
+        exposePort 9126
+    }
+}
+
+task generaterRaptorDockerBaseImage(type: Docker) {
+    baseImage "dockerfile/java"
+    applicationName = "jruby"
+    // runCommand 'echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list'
+    runCommand "apt-get update"
+    runCommand "apt-get install -y vim openssh-server"
+}
+

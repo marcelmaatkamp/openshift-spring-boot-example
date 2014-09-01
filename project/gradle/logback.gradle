@@ -1,0 +1,4 @@
+dependencies { 
+    compile "ch.qos.logback:logback-core:${rootProject["logback.version"]}"
+    compile "ch.qos.logback:logback-classic:${rootProject["logback.version"]}"
+}

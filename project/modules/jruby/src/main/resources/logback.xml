@@ -1,0 +1,62 @@
+<configuration debug="FALSE">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%-16thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>work/logs/koppelvlak.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d [%-16thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>work/logs/%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>1024MB</MaxFileSize>
+        </triggeringPolicy>
+
+    </appender>
+
+    <logger name="ch.qos.logback">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.springframework">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.mule.transport.http.HttpConnector">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.mule.DefaultMuleContext">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.mule">
+        <level value="INFO" />
+    </logger>
+    <logger name="org.apache.cxf.common.logging.LogUtils">
+        <level value="WARN" />
+    </logger>
+    <logger name="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <level value="ERROR" />
+    </logger>
+    <logger name="org.springframework.amqp.rabbit.core.RabbitAdmin">
+        <level value="ERROR" />
+    </logger>
+
+    <logger name="org.hibernate" level="WARN" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

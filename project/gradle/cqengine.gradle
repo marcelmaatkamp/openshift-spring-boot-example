@@ -1,0 +1,3 @@
+dependencies {
+    compile "com.googlecode.cqengine:cqengine:${rootProject["cqengine.version"]}"
+}

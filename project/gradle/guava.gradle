@@ -1,0 +1,4 @@
+dependencies {
+    apply from: "${rootProject.projectDir}/project/gradle/reflections.gradle"
+    compile "com.google.guava:guava:${rootProject["guava.version"]}"
+}

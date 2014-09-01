@@ -1,0 +1,3 @@
+dependencies {
+    compile "org.asciidoctor:asciidoctorj:${rootProject["asciidoctorl.version"]}"
+}
