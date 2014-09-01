@@ -10,9 +10,8 @@ buildscript {
 }
 
 plugins {
-  id "com.github.jruby-gradle" version "0.1.0"
+  id "com.github.jruby-gradle.base" version "0.1.1"
 }
-
 
 allprojects {
     apply plugin: 'java'
