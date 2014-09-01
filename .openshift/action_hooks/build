@@ -1,7 +1,6 @@
 set -x
 cd $OPENSHIFT_REPO_DIR
-export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR/gradle
-
-mkdir build
-cd build
-unzip ../project/modules/jruby/build/distributions/gradledemo-jruby-1.0.zip
+./gradlew build
+# mkdir build
+# cd build
+# unzip ../project/modules/jruby/build/distributions/gradledemo-jruby-1.0.zip
