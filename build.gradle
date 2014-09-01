@@ -1,16 +1,14 @@
 buildscript {
     repositories {
       mavenCentral() 
+      jcenter()
     }
     dependencies {
         classpath group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.6'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject["spring.boot.version"]}")
         classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath group: 'com.lookout', name: 'jruby-gradle-plugin', version: '2.1.+'
     }
-}
-
-plugins {
-  id "com.github.jruby-gradle.base" version "0.1.1"
 }
 
 allprojects {
