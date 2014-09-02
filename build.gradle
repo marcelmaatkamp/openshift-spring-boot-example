@@ -1,13 +1,23 @@
 buildscript {
     repositories {
-      mavenCentral() 
-      jcenter()
+      mavenCentral()
+      mavenRepo(url: 'http://jcenter.bintray.com')   
+      // jcenter()
+      maven { 
+        // bypass jcenter() because openshift supports gradle < 1.6 which has no jcenter()
+        url "http://repository.codehaus.org"
+        // url "http://dl.bintray.com/rtyler/jruby"
+        // url "http://dl.bintray.com/jfrog/jfrog-jars"
+      }
     }
     dependencies {
-        classpath group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.3.6'
+        // docker needs groovy: http://stackoverflow.com/questions/23846709/groovy-shorttypehandling-classnotfoundexception
+        classpath "se.transmode.gradle:gradle-docker:1.2"
+        classpath "org.codehaus.groovy:groovy-all:2.3.6"
+
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject["spring.boot.version"]}")
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
-        classpath group: 'com.lookout', name: 'jruby-gradle-plugin', version: '2.1.+'
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.5"
+        classpath "com.lookout:jruby-gradle-plugin:2.1.0"
     }
 }
 
@@ -21,7 +31,9 @@ allprojects {
     apply plugin: 'docker'
 
     repositories {
-        maven { url "http://stein.pirod.nl:9090/artifactory/libs-release/" }
+        // maven { url "http://stein.pirod.nl:9090/artifactory/libs-release/" }
+      mavenCentral()
+      mavenRepo(url: 'http://jcenter.bintray.com')
     }
 
     dependencies {
@@ -85,7 +97,9 @@ allprojects {
 
     // https://github.com/gradle/gradle/pull/292
     task wrapper(type: Wrapper) {
-      gradleVersion = '2.2-20140831220010+0000'
+      // gradleVersion = "2.2-20140901220011+0000"
+      // gradleVersion = "2.1-rc-3"
+      gradleVersion = "1.7"
     }
 }
 
@@ -99,7 +113,6 @@ project("project:modules") {
 
 project("project:modules:jruby") {
     apply plugin: 'com.lookout.jruby'
-
 
     configurations {
         all*.exclude group: "org.hibernate"
