@@ -32,10 +32,7 @@ public class JRubyConfiguration {
 
         ScriptingContainer scriptingContainer = new ScriptingContainer();
 
-        String filename = "ruby/burn.rb";
 
-        InputStream is = classLoader().getResource(filename).openStream();
-        scriptingContainer.runScriptlet(is, filename);
 
         scriptingContainer.put("message", "Hello from Java with help from Ruby!"); // <1>
         log.info(""+scriptingContainer.runScriptlet("message.upcase")); // <4>

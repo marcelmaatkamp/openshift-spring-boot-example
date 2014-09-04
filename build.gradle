@@ -135,7 +135,7 @@ project("project:modules:jruby") {
 
     mainClassName = "jruby.JRubyApplicationStarter"
     // applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,address=localhost:7001,server=y,suspend=n"]
-    war { 
+    war {
       archiveName = 'ROOT.war'
       destinationDir = file('../../../webapps')
     }
