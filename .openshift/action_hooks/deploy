@@ -1,5 +1,4 @@
 #!/bin/bash
 cd $OPENSHIFT_REPO_DIR
 
-cd gradledemo-jruby-1.0/
-bin/jruby
+./gradlew project:modules:jruby:run
