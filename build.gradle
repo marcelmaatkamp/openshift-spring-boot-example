@@ -1,11 +1,11 @@
 buildscript {
     repositories {
       mavenCentral()
-      mavenRepo(url: 'http://jcenter.bintray.com')   
       // jcenter()
       maven { 
         // bypass jcenter() because openshift supports gradle < 1.6 which has no jcenter()
         url "http://repository.codehaus.org"
+        url "http://jcenter.bintray.com"
         // url "http://dl.bintray.com/rtyler/jruby"
         // url "http://dl.bintray.com/jfrog/jfrog-jars"
       }
@@ -25,18 +25,22 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
+    apply plugin: 'groovy'
     apply plugin: 'spring-boot'
     apply plugin: 'application'
     apply plugin: 'war'
     apply plugin: 'docker'
 
     repositories {
-        // maven { url "http://stein.pirod.nl:9090/artifactory/libs-release/" }
-      mavenCentral()
-      mavenRepo(url: 'http://jcenter.bintray.com')
+      // mavenCentral()
+      maven { 
+        url 'http://jcenter.bintray.com'
+      }
     }
 
     dependencies {
+    // groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.6.5'
+    // groovy group: 'org.apache.ivy', name:'ivy', version:'2.2.0'
         apply from: "${rootProject.projectDir}/project/gradle/spring-boot.gradle"
         apply from: "${rootProject.projectDir}/project/gradle/guava.gradle"
         apply from: "${rootProject.projectDir}/project/gradle/joda.gradle"
