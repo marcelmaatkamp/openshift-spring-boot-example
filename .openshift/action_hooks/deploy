@@ -1,4 +1,4 @@
 #!/bin/bash
 cd $OPENSHIFT_REPO_DIR
-
+export GRADLE_USER_HOME=$OPENSHIFT_DATA_DIR/gradle
 ./gradlew project:modules:jruby:run
