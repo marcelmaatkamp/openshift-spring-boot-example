@@ -159,3 +159,7 @@ task generaterRaptorDockerBaseImage(type: Docker) {
     runCommand "apt-get install -y vim openssh-server"
 }
 
+
+defaultTasks "project:modules:jruby:run"
+mainClassName = "jruby.JRubyApplicationStarter"
+
