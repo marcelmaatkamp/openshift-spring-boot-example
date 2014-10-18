@@ -27,3 +27,4 @@ crawler/
 .mule
 deps
 images/
+webapps/ROOT.war
