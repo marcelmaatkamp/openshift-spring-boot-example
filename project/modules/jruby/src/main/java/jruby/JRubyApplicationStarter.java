@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 public class JRubyApplicationStarter {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
+    ch.qos.logback.classic.spi.ThrowableProxy p;
 
 
     public static void main(String[] args) {

@@ -128,15 +128,6 @@ project("project:modules:jruby") {
         compile project(":project:modules")
         apply from: "${rootProject.projectDir}/project/gradle/jruby.gradle"
         apply from: "${rootProject.projectDir}/project/gradle/asciidoctorj.gradle"
-
-        gems group: 'rubygems', name: 'sinatra', version: '1.4.5'
-        gems group: 'rubygems', name: 'rake', version: '10.3.+'
-        gems group: 'rubygems', name: 'burn', version: '0.2.0'
-
-        gems group: 'rubygems', name: 'logback', version: '0.9.15.2'
-
-        jrubyWar group: 'org.apache.kafka', name: 'kafka_2.9.2', version: '0.8.+'
-        jrubyWar group: 'log4j', name: 'log4j', version: '1.2.+', transitive: true
     }
 
     mainClassName = "jruby.JRubyApplicationStarter"
